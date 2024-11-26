@@ -2,13 +2,13 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
-import { Logger } from '@nestjs/common';
+import { LoggingService as Logger } from './Logs/logging.service';
 
 async function bootstrap() {
+  
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
-  const logger = new Logger('Bootstrap');
-  console.log(configService.get('SERVICE_PORT'))
+  const logger = new Logger();
 
   app.connectMicroservice({
     transport: Transport.RMQ,
