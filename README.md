@@ -68,5 +68,30 @@ Set the controller and the service provider in `app.module.ts`.
 
 Update `app.module.ts` and `app.service.ts` in `main` to include the service.
 
+
+### Logs
+
 The logs are located in the src directory of the docker container prueba-directo-pruebadirecto, in the file application.log
 
+### Usage
+The endpoint request must be a json object with the following structure:
+
+```JSON
+{
+	"number": 8
+}
+```
+
+replace the "8" with the number you want to send to the service.
+
+### Environments
+
+To use a different environment, simply add a .env.{[production || development || local]} file to ./main, with the following structure:
+
+```ENV
+RABBITMQ_URL=amqp://localhost:5672
+SERVICE_PORT=3000
+NODE_ENV={[production || development || local]}
+```
+
+You can use the env.example as a template.
