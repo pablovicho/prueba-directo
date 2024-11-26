@@ -1,0 +1,117 @@
+services:
+  rabbitmq:
+    image: 'rabbitmq:3-management'
+    container_name: rabbitmq
+    volumes:
+      - rabbit_data:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - backend
+  
+  pruebadirecto:
+    build: 
+      context: ./main
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3000'
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - SERVICE_PORT=3000
+    networks:
+      - backend
+
+  paridad:
+    build: 
+      context: ./paridad
+      dockerfile: Dockerfile
+    ports:
+      - '3002:3000'
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - SERVICE_PORT=3000
+    networks:
+      - backend
+
+  primalidad:
+    build: 
+      context: ./primalidad
+      dockerfile: Dockerfile
+    ports:
+      - '3003:3000'
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - SERVICE_PORT=3000
+    networks:
+      - backend
+
+  factorial:
+    build: 
+      context: ./factorial
+      dockerfile: Dockerfile
+    ports:
+      - '3004:3000'
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - SERVICE_PORT=3000
+    networks:
+      - backend
+
+  suma_numeros:
+    build: 
+      context: ./suma_enteros
+      dockerfile: Dockerfile
+    ports:
+      - '3005:3000'
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - SERVICE_PORT=3000
+    networks:
+      - backend
+
+  factores:
+    build: 
+      context: ./factores
+      dockerfile: Dockerfile
+    ports:
+      - '3006:3000'
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - SERVICE_PORT=3000
+    networks:
+      - backend
+
+  fibonacci:
+    build: 
+      context: ./fibonacci
+      dockerfile: Dockerfile
+    ports:
+      - '3007:3000'
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - SERVICE_PORT=3000
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  rabbit_data:
+    driver: local
