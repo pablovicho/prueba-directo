@@ -14,7 +14,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.local', '.env.development', '.env.production'],
+      envFilePath: ['.env.production', '.env.development', '.env.local'],
       isGlobal: true,
     }),
   ],
